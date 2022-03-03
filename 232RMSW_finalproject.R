@@ -27,14 +27,24 @@ cntry_stats <- read_csv('https://raw.githubusercontent.com/ameliahg/PSCI232/main
 
 
 # Creating regression m1
-m1 <- lm(ruggedness~mil_spend_pct_gdp, data=cntry_stats)
+m1 <- lm(total_sch_adult~gdppc_ppp, data=cntry_stats)
 print(summary(m1))
 # Creating scatter plot s1
-s1 <- ggplot(data=cntry_stats, aes(y=sqrt(mil_spend_pct_gdp),
-                           x=ruggedness)) +
+s1 <- ggplot(data=cntry_stats, aes(x=total_sch_adult,
+                           y=gdppc_ppp)) +
   geom_point(alpha=0.4, color="red") + geom_smooth(method="lm")
 print(s1, na.rm=TRUE)
 ggsave('s1.pdf',plot=s1,width=6,height=6)
+
+
+#Creating bar grapg b1
+b1 <- ggplot(data=cntry_stats, aes(x=reorder(country, -mil_spend_total),
+                                   y=sqrt(mil_spend_total)))+
+  geom_col()
+print(b1 +labs(x="country", y="Spending (USD)",
+                               title="Military Spending Total By Country",
+                               subtitle="From highest to lowest"), na.rm=TRUE)
+ggsave('b1.pdf', plot=b1,width=10,height=10)
 
 
 
