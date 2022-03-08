@@ -3,7 +3,7 @@
 #
 # [NAMES] --> Rachel Mroz, Steven White
 # [DATE] --> 03/16/2022
-# [EXTRA PACKAGEES TO INSTALL NOT DISCUSSED IN CLASS] --> ggrepel, plotly
+# [EXTRA PACKAGES TO INSTALL NOT DISCUSSED IN CLASS] --> ggrepel, plotly
 # 
 # [DESCRIPTION] --> This code accomplishes the following tasks...
 # 
@@ -55,27 +55,29 @@ s1 <- ggplot(data=cntry_stats, aes(x=total_sch_adult, y=gdppc_ppp,
                                    text= paste("Country: ", country))) +
   theme_bw()+
   geom_point(alpha=0.6, color="darkgreen") + geom_smooth(method="lm")
-#ggplotly(s1) --> IF highlighted and run, will open in viewer to become interactive.
-
 print(ggplotly(s1 +  labs(x="Education Level", y="GDP per capita",
                           title="Education Rates Compared to Country GDP")),
       na.rm=TRUE) # Running ggplotly in this line opens the graph in viewer tab.
                   # Does not make .pdf file interactive.
+# Prints Correlation of adult schooling and GDP per capita --> 0.6654355
 print(cor(cntry_stats$total_sch_adult,cntry_stats$gdppc_ppp,use='complete.obs'))
 ggsave('s1.pdf',plot=s1,width=6,height=6)
 
 
 
 # Creating bar graph b1
-b1 <- ggplot(data=cntry_stats, aes(x=reorder(country, +mil_spend_total),
-                                   y=sqrt(mil_spend_total)))+
+b1 <- ggplot(data=filter(cntry_stats,mil_spend_total>10000000000),
+             #Filters graph to only show countries with a GDP per capita of over 10 BILLION
+             aes(x=reorder(country, +mil_spend_total),
+                                   y=sqrt(mil_spend_total)))+ 
+  coord_flip() + labs(x="Country", y="Spending",
+       title="Military Spending Total By Country",
+       subtitle="From highest to lowest")+
   geom_col(color="white", fill="darkred")
-print(b1 + coord_flip() +
-        labs(x="country", y="Spending (USD)",
-                               title="Military Spending Total By Country",
-                               subtitle="From highest to lowest"),
-      na.rm=TRUE)
+print(b1, na.rm=TRUE)
 ggsave('b1.pdf', plot=b1,width=10,height=10)
+# PROBLEM WITH THIS GRAPH: LABELS ARE TOO SMUSHED!!
+# X AXIS LABEL NEEDS TO BE CHANGED PROBABLY!!!
 
 
 
