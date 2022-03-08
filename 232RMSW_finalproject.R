@@ -18,12 +18,12 @@
 #
 # GRAPH 2: [HORIZONTAL BAR GRAPH VIEW IN PLOTS] variables: country, mil_spend+total
         # Creates bar graph of military spending, ordered from highest to lowest.
-        # Filters results to show only top *****INSERT NUMBER***** highest spending countries.
+        # Filters results to show only top 20 highest spending countries.
+        # These countries have a GDP per capita of over 10 Billion.
         # Rotates bar graph from initial position to for ease of viewing,
         # in addition to other aesthetic choices.
-        #
-        # *****ADD MORE WHEN DONE!!*****
-        #
+        # 
+        # 
 #
 # GRAPH 3: [INTERACTIVE BUBBLE PLOT VIEW IN VIEWER] variables: basic_water_access, childmort_
         # Creates an interactive bubble plot (based on country population) 
@@ -76,8 +76,6 @@ b1 <- ggplot(data=filter(cntry_stats,mil_spend_total>10000000000),
   geom_col(color="white", fill="darkred")
 print(b1, na.rm=TRUE)
 ggsave('b1.pdf', plot=b1,width=10,height=10)
-# PROBLEM WITH THIS GRAPH: LABELS ARE TOO SMUSHED!!
-# X AXIS LABEL NEEDS TO BE CHANGED PROBABLY!!!
 
 
 
